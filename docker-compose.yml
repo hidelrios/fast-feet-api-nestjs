@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword  # senha do root
+      MYSQL_DATABASE: mydb              # banco inicial
+      MYSQL_USER: myuser                # usuário
+      MYSQL_PASSWORD: mypassword        # senha do usuário
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
