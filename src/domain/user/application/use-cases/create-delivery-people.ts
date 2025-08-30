@@ -3,6 +3,7 @@ import { User } from '../../enterprise/entities/user';
 import { DeliveryPeopleRepository } from '../repositories/delivery-people-repository';
 import { DeliveryPeopleAlreadyExistsError } from './erros/delivery-people-already-exists-error';
 import { Either, left, right } from '@/core/either';
+import { HashGenerator } from '../cryptography/hash-generator';
 
 interface CreateDeliveryPeopleUseCaseRequest {
   name: string;
@@ -17,7 +18,10 @@ type CreateDeliveryPeopleUseCaseResponse = Either<
   }
 >;
 export class CreateDeliveryPeopleUseCase {
-  constructor(private deliveryPeopleRepository: DeliveryPeopleRepository) {}
+  constructor(
+    private deliveryPeopleRepository: DeliveryPeopleRepository,
+    private hashGenerator: HashGenerator,
+  ) {}
 
   async execute({
     name,
@@ -31,10 +35,11 @@ export class CreateDeliveryPeopleUseCase {
       return left(new DeliveryPeopleAlreadyExistsError(cpf));
     }
 
+    const passwordHash = await this.hashGenerator.hash(password);
     const deliveryPerson = User.create({
       name,
       cpf,
-      password,
+      password: passwordHash,
       role: Role.DELIVERYMAN,
     });
 
