@@ -4,6 +4,7 @@ import { DeliveryPeopleRepository } from '../repositories/delivery-people-reposi
 import { DeliveryPeopleAlreadyExistsError } from './erros/delivery-people-already-exists-error';
 import { Either, left, right } from '@/core/either';
 import { HashGenerator } from '../cryptography/hash-generator';
+import { Injectable } from '@nestjs/common';
 
 interface CreateDeliveryPeopleUseCaseRequest {
   name: string;
@@ -17,6 +18,7 @@ type CreateDeliveryPeopleUseCaseResponse = Either<
     deliveryPerson: User;
   }
 >;
+@Injectable()
 export class CreateDeliveryPeopleUseCase {
   constructor(
     private deliveryPeopleRepository: DeliveryPeopleRepository,

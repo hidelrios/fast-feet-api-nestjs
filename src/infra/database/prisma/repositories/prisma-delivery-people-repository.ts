@@ -2,7 +2,9 @@ import { DeliveryPeopleRepository } from '@/domain/user/application/repositories
 import { PrismaService } from '../prisma.service';
 import { User } from '@/domain/user/enterprise/entities/user';
 import { PrismaDeliveryPeopleMapper } from '../mappers/prisma-delivery-people-mapper';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class PrismaDeliveryPeopleRepository
   implements DeliveryPeopleRepository
 {
