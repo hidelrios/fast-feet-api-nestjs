@@ -1,9 +1,5 @@
-import { Role } from '@prisma/client';
-import { User } from '../../enterprise/entities/user';
 import { DeliveryPeopleRepository } from '../repositories/delivery-people-repository';
-import { DeliveryPeopleAlreadyExistsError } from './erros/delivery-people-already-exists-error';
 import { Either, left, right } from '@/core/either';
-import { HashGenerator } from '../cryptography/hash-generator';
 import { Injectable } from '@nestjs/common';
 import { DeliveryPeopleNotExistsError } from './erros/delivery-people-not-exists-error';
 

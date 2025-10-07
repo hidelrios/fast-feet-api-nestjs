@@ -1,5 +1,4 @@
-import { BadRequestException, Body, ConflictException, Controller, Delete, NotFoundException, Param, Post, Put } from '@nestjs/common';
-import { UpdateDeliveryPeopleDTO } from './dto/update-delivery-people.dto';
+import { BadRequestException, Controller, Delete, NotFoundException, Param } from '@nestjs/common';
 import { DeleteDeliveryPeopleUseCase } from '@/domain/user/application/use-cases/delete-delivery-people';
 import { DeliveryPeopleNotExistsError } from '@/domain/user/application/use-cases/erros/delivery-people-not-exists-error';
 
