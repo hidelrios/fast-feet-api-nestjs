@@ -1,6 +1,7 @@
 import { CreateDeliveryPeopleUseCase } from '@/domain/user/application/use-cases/create-delivery-people';
-import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
+import { BadRequestException, Body, ConflictException, Controller, Post } from '@nestjs/common';
 import { CreateDeliveryPeopleDTO } from './dto/create-delivery-people.dto';
+import { DeliveryPeopleAlreadyExistsError } from '@/domain/user/application/use-cases/erros/delivery-people-already-exists-error';
 
 @Controller('/delivery-people')
 export class CreateDeliveryPeopleController {
@@ -18,7 +19,12 @@ export class CreateDeliveryPeopleController {
     });
 
     if (result.isLeft()) {
-      return new BadRequestException(result.value.message);
+      switch (result.value.constructor) {
+        case DeliveryPeopleAlreadyExistsError:
+          return new ConflictException(result.value.message);
+        default:
+          return new BadRequestException(result.value.message);
+      }
     }
 
     return result;

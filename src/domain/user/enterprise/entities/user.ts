@@ -26,6 +26,13 @@ export class User extends Entity<UserProps> {
     return user;
   }
 
+  update(
+    props: Partial<UserProps>,
+  ) {
+    Object.assign(this.props, props);
+    this.props.updatedAt = new Date();
+  }
+
   get name() {
     return this.props.name;
   }

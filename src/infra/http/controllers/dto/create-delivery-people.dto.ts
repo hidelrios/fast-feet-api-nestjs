@@ -1,7 +1,7 @@
 import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
 
 export enum UserRole {
-  DELIVERY_PERSON = 'DELIVERY_PERSON',
+  DELIVERYMAN = 'DELIVERYMAN',
 }
 
 export class CreateDeliveryPeopleDTO {

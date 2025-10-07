@@ -6,9 +6,30 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class PrismaDeliveryPeopleRepository
-  implements DeliveryPeopleRepository
-{
-  constructor(private prisma: PrismaService) {}
+  implements DeliveryPeopleRepository {
+  constructor(private prisma: PrismaService) { }
+  async findAll(): Promise<User[]> {
+    const users = await this.prisma.user.findMany({ where: { role: 'DELIVERYMAN' } });
+    return users.map(PrismaDeliveryPeopleMapper.toDomain);
+  }
+  async update(user: Partial<User>): Promise<void> {
+    const userMapper = PrismaDeliveryPeopleMapper.toPrisma(user as User);
+    await this.prisma.user.update({
+      where: {
+        id: user.id?.toString(),
+      },
+      data: {
+        ...userMapper,
+      },
+    });
+  }
+  async delete(userId: string): Promise<void> {
+    await this.prisma.user.delete({
+      where: {
+        id: userId,
+      },
+    });
+  }
   async findById(id: string): Promise<User | null> {
     const deliveryPerson = await this.prisma.user.findUnique({
       where: {
