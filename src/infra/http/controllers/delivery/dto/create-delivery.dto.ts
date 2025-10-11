@@ -6,9 +6,9 @@ export class CreateDeliveryDTO {
   @IsString()
   product: string;
 
-  @IsNotEmpty()
-  @IsEnum(DeliveryStatus)
-  status: DeliveryStatus;
+  // @IsNotEmpty()
+  // @IsEnum(DeliveryStatus)
+  // status: DeliveryStatus;
 
   @IsNotEmpty()
   @IsOptional()

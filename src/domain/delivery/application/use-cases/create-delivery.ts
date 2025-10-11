@@ -6,6 +6,7 @@ import { DeliveryPeopleRepository } from "@/domain/user/application/repositories
 import { DeliveryManNotFoundError } from "./errors/deliveryman-not-found-error";
 import { RecipientRepository } from "../repositories/recipient-repository";
 import { RecipientNotFoundError } from "./errors/recipient-not-found-error";
+import { Injectable } from "@nestjs/common";
 
 interface CreateDeliveryRequest {
   product: string;
@@ -17,6 +18,7 @@ interface CreateDeliveryRequest {
 
 type CreateDeliveryResponse = Either<CreateDeliveryError | DeliveryManNotFoundError | RecipientNotFoundError, { delivery: Delivery }>;
 
+@Injectable()
 export class CreateDeliveryUseCase {
   constructor(private deliveryRepository: DeliveryRepository,
     private deliveryManRepository: DeliveryPeopleRepository,
@@ -49,6 +51,7 @@ export class CreateDeliveryUseCase {
 
       return right({ delivery });
     } catch (err) {
+      console.log(err);
       return left(new CreateDeliveryError());
     }
   }

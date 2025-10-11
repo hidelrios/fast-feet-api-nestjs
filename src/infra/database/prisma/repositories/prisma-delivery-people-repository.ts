@@ -12,6 +12,7 @@ export class PrismaDeliveryPeopleRepository
     const users = await this.prisma.user.findMany({ where: { role: 'DELIVERYMAN' } });
     return users.map(PrismaDeliveryPeopleMapper.toDomain);
   }
+
   async update(user: Partial<User>): Promise<void> {
     const userMapper = PrismaDeliveryPeopleMapper.toPrisma(user as User);
     await this.prisma.user.update({
@@ -23,6 +24,7 @@ export class PrismaDeliveryPeopleRepository
       },
     });
   }
+
   async delete(userId: string): Promise<void> {
     await this.prisma.user.delete({
       where: {
@@ -30,6 +32,7 @@ export class PrismaDeliveryPeopleRepository
       },
     });
   }
+  
   async findById(id: string): Promise<User | null> {
     const deliveryPerson = await this.prisma.user.findUnique({
       where: {

@@ -12,11 +12,10 @@ export class CreateDeliveryController {
   async handle(
     @Body() createDeliveryDTO: CreateDeliveryDTO,
   ): Promise<any> {
-    const { product, photoUrl, status, deliverymanId, recipientId } = createDeliveryDTO;
+    const { product, photoUrl, deliverymanId, recipientId } = createDeliveryDTO;
     const result = await this.createDelivery.execute({
       product,
       photoUrl,
-      status,
       deliverymanId,
       recipientId
     });
