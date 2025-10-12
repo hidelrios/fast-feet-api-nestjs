@@ -1,4 +1,4 @@
-import { Delivery } from "../../enterprise/entities/delivery";
+import { Delivery } from '../../enterprise/entities/delivery';
 
 export abstract class DeliveryRepository {
   abstract create(data: Delivery): Promise<void>;

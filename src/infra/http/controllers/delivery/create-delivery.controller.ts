@@ -1,4 +1,10 @@
-import { BadRequestException, Body, Controller, NotFoundException, Post } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  NotFoundException,
+  Post,
+} from '@nestjs/common';
 import { CreateDeliveryUseCase } from '@/domain/delivery/application/use-cases/create-delivery';
 import { CreateDeliveryDTO } from './dto/create-delivery.dto';
 import { DeliveryManNotFoundError } from '@/domain/delivery/application/use-cases/errors/deliveryman-not-found-error';
@@ -9,15 +15,13 @@ export class CreateDeliveryController {
   constructor(private createDelivery: CreateDeliveryUseCase) {}
 
   @Post()
-  async handle(
-    @Body() createDeliveryDTO: CreateDeliveryDTO,
-  ): Promise<any> {
+  async handle(@Body() createDeliveryDTO: CreateDeliveryDTO): Promise<any> {
     const { product, photoUrl, deliverymanId, recipientId } = createDeliveryDTO;
     const result = await this.createDelivery.execute({
       product,
       photoUrl,
       deliverymanId,
-      recipientId
+      recipientId,
     });
 
     if (result.isLeft()) {

@@ -20,7 +20,7 @@ import { PrismaRecipientRepository } from './prisma/repositories/prisma-recipien
       provide: DeliveryRepository,
       useClass: PrismaDeliveryRepository,
     },
-        {
+    {
       provide: RecipientRepository,
       useClass: PrismaRecipientRepository,
     },

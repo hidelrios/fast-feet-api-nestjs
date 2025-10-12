@@ -1,4 +1,10 @@
-import { BadRequestException, Controller,  Get,  NotFoundException,  Query } from '@nestjs/common';
+import {
+  BadRequestException,
+  Controller,
+  Get,
+  NotFoundException,
+  Query,
+} from '@nestjs/common';
 import { ReadDeliveryUseCase } from '@/domain/delivery/application/use-cases/read-delivery';
 import { DeliveryNotFoundError } from '@/domain/delivery/application/use-cases/errors/delivery-not-found-error';
 
@@ -7,10 +13,7 @@ export class ReadDeliveryController {
   constructor(private readDelivery: ReadDeliveryUseCase) {}
 
   @Get()
-  async handle(
-    @Query('id') id?: string,
-  ): Promise<any> {
-
+  async handle(@Query('id') id?: string): Promise<any> {
     const result = await this.readDelivery.execute({ id });
 
     if (result.isLeft()) {
@@ -19,7 +22,7 @@ export class ReadDeliveryController {
           return new NotFoundException(result.value.message);
         default:
           return new BadRequestException(result.value.message);
-    }
+      }
     }
     return result.value;
   }

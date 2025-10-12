@@ -1,4 +1,10 @@
-import { BadRequestException, Controller, Delete, NotFoundException, Param } from '@nestjs/common';
+import {
+  BadRequestException,
+  Controller,
+  Delete,
+  NotFoundException,
+  Param,
+} from '@nestjs/common';
 import { DeleteDeliveryPeopleUseCase } from '@/domain/user/application/use-cases/delete-delivery-people';
 import { DeliveryPeopleNotExistsError } from '@/domain/user/application/use-cases/erros/delivery-people-not-exists-error';
 
@@ -7,9 +13,7 @@ export class DeleteDeliveryPeopleController {
   constructor(private deleteDeliveryPeople: DeleteDeliveryPeopleUseCase) {}
 
   @Delete(':id')
-  async handle(
-    @Param('id') id: string,
-  ): Promise<any> {
+  async handle(@Param('id') id: string): Promise<any> {
     const result = await this.deleteDeliveryPeople.execute({
       id,
     });

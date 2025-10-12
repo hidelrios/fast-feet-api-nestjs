@@ -1,5 +1,11 @@
 import { CreateDeliveryPeopleUseCase } from '@/domain/user/application/use-cases/create-delivery-people';
-import { BadRequestException, Body, ConflictException, Controller, Post } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  ConflictException,
+  Controller,
+  Post,
+} from '@nestjs/common';
 import { CreateDeliveryPeopleDTO } from './dto/create-delivery-people.dto';
 import { DeliveryPeopleAlreadyExistsError } from '@/domain/user/application/use-cases/erros/delivery-people-already-exists-error';
 

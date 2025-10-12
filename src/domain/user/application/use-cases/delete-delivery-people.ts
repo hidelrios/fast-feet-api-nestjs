@@ -13,9 +13,7 @@ type DeleteDeliveryPeopleUseCaseResponse = Either<
 >;
 @Injectable()
 export class DeleteDeliveryPeopleUseCase {
-  constructor(
-    private deliveryPeopleRepository: DeliveryPeopleRepository,
-  ) {}
+  constructor(private deliveryPeopleRepository: DeliveryPeopleRepository) {}
 
   async execute({
     id,

@@ -18,9 +18,7 @@ type UpdateDeliveryPeopleUseCaseResponse = Either<
 >;
 @Injectable()
 export class UpdateDeliveryPeopleUseCase {
-  constructor(
-    private deliveryPeopleRepository: DeliveryPeopleRepository,
-  ) {}
+  constructor(private deliveryPeopleRepository: DeliveryPeopleRepository) {}
 
   async execute({
     id,

@@ -5,11 +5,10 @@ import { Delivery } from '@/domain/delivery/enterprise/entities/delivery';
 import { PrismaDeliveryMapper } from '../mappers/prisma-delivery-mapper';
 
 @Injectable()
-export class PrismaDeliveryRepository
-  implements DeliveryRepository {
-  constructor(private prisma: PrismaService) { }
+export class PrismaDeliveryRepository implements DeliveryRepository {
+  constructor(private prisma: PrismaService) {}
   async findAll(): Promise<Delivery[]> {
-    const deliveries = await this.prisma.delivery.findMany( );
+    const deliveries = await this.prisma.delivery.findMany();
     return deliveries.map(PrismaDeliveryMapper.toDomain);
   }
   async update(delivery: Partial<Delivery>): Promise<void> {

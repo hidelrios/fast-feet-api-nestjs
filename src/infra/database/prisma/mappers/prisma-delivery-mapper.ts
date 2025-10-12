@@ -1,22 +1,29 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
-import { Delivery, DeliveryStatus } from '@/domain/delivery/enterprise/entities/delivery';
-import { Delivery as PrismaDelivery, Prisma, DeliveryStatus as PrismaDeliveryStatus } from '@prisma/client';
+import {
+  Delivery,
+  DeliveryStatus,
+} from '@/domain/delivery/enterprise/entities/delivery';
+import {
+  Delivery as PrismaDelivery,
+  Prisma,
+  DeliveryStatus as PrismaDeliveryStatus,
+} from '@prisma/client';
 
 export class PrismaDeliveryMapper {
   static mapPrismaStatusToDomain(status: PrismaDeliveryStatus): DeliveryStatus {
-  switch (status) {
-    case 'PENDING':
-      return DeliveryStatus.PENDING;
-    case 'WITHDRAWN':
-      return DeliveryStatus.WITHDRAWN;
-    case 'DELIVERED':
-      return DeliveryStatus.DELIVERED;
-    case 'RETURNED':
-      return DeliveryStatus.RETURNED;
-    default:
-      throw new Error(`Unknown status: ${status}`);
+    switch (status) {
+      case 'PENDING':
+        return DeliveryStatus.PENDING;
+      case 'WITHDRAWN':
+        return DeliveryStatus.WITHDRAWN;
+      case 'DELIVERED':
+        return DeliveryStatus.DELIVERED;
+      case 'RETURNED':
+        return DeliveryStatus.RETURNED;
+      default:
+        throw new Error(`Unknown status: ${status}`);
+    }
   }
-}
   static toDomain(raw: PrismaDelivery): Delivery {
     return Delivery.create(
       {

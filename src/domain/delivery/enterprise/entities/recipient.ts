@@ -2,7 +2,6 @@ import { Entity } from '@/core/entities/entity';
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { Optional } from '@/core/types/optional';
 
-
 interface RecipientProps {
   name: string;
   street: string;
@@ -17,7 +16,10 @@ interface RecipientProps {
 }
 
 export class Recipient extends Entity<RecipientProps> {
-  static create(props: Optional<RecipientProps, 'createdAt'>, id?: UniqueEntityID) {
+  static create(
+    props: Optional<RecipientProps, 'createdAt'>,
+    id?: UniqueEntityID,
+  ) {
     const recipient = new Recipient(
       {
         ...props,
@@ -29,9 +31,7 @@ export class Recipient extends Entity<RecipientProps> {
     return recipient;
   }
 
-  update(
-    props: Partial<RecipientProps>,
-  ) {
+  update(props: Partial<RecipientProps>) {
     Object.assign(this.props, props);
     this.props.updatedAt = new Date();
   }
@@ -55,7 +55,7 @@ export class Recipient extends Entity<RecipientProps> {
   get state() {
     return this.props.state;
   }
-  
+
   get city() {
     return this.props.city;
   }

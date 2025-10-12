@@ -15,13 +15,11 @@ type ReadDeliveryPeopleUseCaseResponse = Either<
 >;
 @Injectable()
 export class ReadDeliveryPeopleUseCase {
-  constructor(
-    private deliveryPeopleRepository: DeliveryPeopleRepository,
-  ) {}
+  constructor(private deliveryPeopleRepository: DeliveryPeopleRepository) {}
 
   async execute({
     id,
-    cpf
+    cpf,
   }: ReadDeliveryPeopleUseCaseRequest): Promise<ReadDeliveryPeopleUseCaseResponse> {
     if (!id && !cpf) {
       const allUsers = await this.deliveryPeopleRepository.findAll();
@@ -43,4 +41,3 @@ export class ReadDeliveryPeopleUseCase {
     return left(new DeliveryPeopleNotExistsError(id || cpf || 'unknown'));
   }
 }
-

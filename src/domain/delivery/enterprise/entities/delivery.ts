@@ -21,7 +21,10 @@ interface DeliveryProps {
 }
 
 export class Delivery extends Entity<DeliveryProps> {
-  static create(props: Optional<DeliveryProps, 'createdAt'>, id?: UniqueEntityID) {
+  static create(
+    props: Optional<DeliveryProps, 'createdAt'>,
+    id?: UniqueEntityID,
+  ) {
     const delivery = new Delivery(
       {
         ...props,
@@ -33,9 +36,7 @@ export class Delivery extends Entity<DeliveryProps> {
     return delivery;
   }
 
-  update(
-    props: Partial<DeliveryProps>,
-  ) {
+  update(props: Partial<DeliveryProps>) {
     Object.assign(this.props, props);
     this.props.updatedAt = new Date();
   }
@@ -59,7 +60,7 @@ export class Delivery extends Entity<DeliveryProps> {
   get deliverymanId() {
     return this.props.deliverymanId;
   }
-  
+
   get createdAt() {
     return this.props.createdAt;
   }

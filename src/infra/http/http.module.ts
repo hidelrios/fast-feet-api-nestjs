@@ -17,11 +17,45 @@ import { CreateDeliveryUseCase } from '@/domain/delivery/application/use-cases/c
 import { DeleteDeliveryUseCase } from '@/domain/delivery/application/use-cases/delete-delivery';
 import { ReadDeliveryUseCase } from '@/domain/delivery/application/use-cases/read-delivery';
 import { UpdateDeliveryUseCase } from '@/domain/delivery/application/use-cases/update-delivery';
+import { DeleteRecipientController } from './controllers/recipient/delete-recipient.controller';
+import { CreateRecipientController } from './controllers/recipient/create-recipient.controller';
+import { ReadRecipientController } from './controllers/recipient/read-recipient.controller';
+import { UpdateRecipientController } from './controllers/recipient/update-delivery.controller';
+import { CreateRecipientUseCase } from '@/domain/delivery/application/use-cases/create-recipient';
+import { ReadRecipientUseCase } from '@/domain/delivery/application/use-cases/read-recipient';
+import { UpdateRecipientUseCase } from '@/domain/delivery/application/use-cases/update-recipient';
+import { DeleteRecipientUseCase } from '@/domain/delivery/application/use-cases/delete-recipient';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
-  controllers: [CreateDeliveryPeopleController, UpdateDeliveryPeopleController, DeleteDeliveryPeopleController, ReadDeliveryPeopleController, CreateDeliveryController, DeleteDeliveryController, ReadDeliveryController, UpdateDeliveryController],
-  providers: [CreateDeliveryPeopleUseCase, UpdateDeliveryPeopleUseCase, DeleteDeliveryPeopleUseCase, ReadDeliveryPeopleUseCase, CreateDeliveryUseCase, DeleteDeliveryUseCase, ReadDeliveryUseCase, UpdateDeliveryUseCase],
+  controllers: [
+    CreateDeliveryPeopleController,
+    UpdateDeliveryPeopleController,
+    DeleteDeliveryPeopleController,
+    ReadDeliveryPeopleController,
+    CreateDeliveryController,
+    DeleteDeliveryController,
+    ReadDeliveryController,
+    UpdateDeliveryController,
+    CreateRecipientController,
+    ReadRecipientController,
+    UpdateRecipientController,
+    DeleteRecipientController,
+  ],
+  providers: [
+    CreateDeliveryPeopleUseCase,
+    UpdateDeliveryPeopleUseCase,
+    DeleteDeliveryPeopleUseCase,
+    ReadDeliveryPeopleUseCase,
+    CreateDeliveryUseCase,
+    DeleteDeliveryUseCase,
+    ReadDeliveryUseCase,
+    UpdateDeliveryUseCase,
+    CreateRecipientUseCase,
+    ReadRecipientUseCase,
+    UpdateRecipientUseCase,
+    DeleteRecipientUseCase,
+  ],
   exports: [],
 })
 export class HttpModule {}

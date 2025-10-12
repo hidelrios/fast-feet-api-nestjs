@@ -6,10 +6,13 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class PrismaDeliveryPeopleRepository
-  implements DeliveryPeopleRepository {
-  constructor(private prisma: PrismaService) { }
+  implements DeliveryPeopleRepository
+{
+  constructor(private prisma: PrismaService) {}
   async findAll(): Promise<User[]> {
-    const users = await this.prisma.user.findMany({ where: { role: 'DELIVERYMAN' } });
+    const users = await this.prisma.user.findMany({
+      where: { role: 'DELIVERYMAN' },
+    });
     return users.map(PrismaDeliveryPeopleMapper.toDomain);
   }
 
@@ -32,7 +35,7 @@ export class PrismaDeliveryPeopleRepository
       },
     });
   }
-  
+
   async findById(id: string): Promise<User | null> {
     const deliveryPerson = await this.prisma.user.findUnique({
       where: {

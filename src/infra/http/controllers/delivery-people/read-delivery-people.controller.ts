@@ -1,4 +1,4 @@
-import { BadRequestException, Controller,  Get,  Query } from '@nestjs/common';
+import { BadRequestException, Controller, Get, Query } from '@nestjs/common';
 
 import { ReadDeliveryPeopleUseCase } from '@/domain/user/application/use-cases/read-delivery-people';
 
@@ -11,7 +11,6 @@ export class ReadDeliveryPeopleController {
     @Query('id') id?: string,
     @Query('cpf') cpf?: string,
   ): Promise<any> {
-
     const result = await this.readDeliveryPeople.execute({ id, cpf });
 
     if (result.isLeft()) {

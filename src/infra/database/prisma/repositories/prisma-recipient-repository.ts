@@ -1,25 +1,25 @@
-import { RecipientRepository } from "@/domain/delivery/application/repositories/recipient-repository";
-import { Recipient } from "@/domain/delivery/enterprise/entities/recipient";
-import { PrismaService } from "../prisma.service";
-import { PrismaRecipientMapper } from "../mappers/prisma-recipient-mapper";
-import { Injectable } from "@nestjs/common";
+import { RecipientRepository } from '@/domain/delivery/application/repositories/recipient-repository';
+import { Recipient } from '@/domain/delivery/enterprise/entities/recipient';
+import { PrismaService } from '../prisma.service';
+import { PrismaRecipientMapper } from '../mappers/prisma-recipient-mapper';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class PrismaRecipientRepository implements RecipientRepository {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
   async create(data: Recipient): Promise<void> {
     const recipient = PrismaRecipientMapper.toPrisma(data);
     await this.prisma.recipient.create({
-      data: recipient
-    })
-  };
+      data: recipient,
+    });
+  }
 
   async findById(id: string): Promise<Recipient | null> {
     const recipient = await this.prisma.recipient.findUnique({
       where: {
-        id
-      }
-    })
+        id,
+      },
+    });
 
     if (!recipient) {
       return null;
@@ -36,18 +36,18 @@ export class PrismaRecipientRepository implements RecipientRepository {
     const recipient = PrismaRecipientMapper.toPrisma(data as Recipient);
     await this.prisma.recipient.update({
       where: {
-        id: data.id?.toString()
+        id: data.id?.toString(),
       },
       data: {
-        ...recipient
-      }
-    })
+        ...recipient,
+      },
+    });
   }
   async delete(id: string): Promise<void> {
     await this.prisma.recipient.delete({
       where: {
-        id
-      }
-    })
+        id,
+      },
+    });
   }
 }
