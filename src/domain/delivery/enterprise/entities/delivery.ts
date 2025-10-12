@@ -29,6 +29,7 @@ export class Delivery extends Entity<DeliveryProps> {
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),
+        updatedAt: props.createdAt ?? new Date(),
       },
       id,
     );

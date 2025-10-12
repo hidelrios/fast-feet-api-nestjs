@@ -2,6 +2,7 @@ import { Either, left, right } from '@/core/either';
 import { Delivery } from '../../enterprise/entities/delivery';
 import { DeliveryRepository } from '../repositories/delivery-repository';
 import { DeliveryNotFoundError } from './errors/delivery-not-found-error';
+import { Inject, Injectable } from '@nestjs/common';
 
 interface DeleteDeliveryRequest {
   id: string;
@@ -9,6 +10,7 @@ interface DeleteDeliveryRequest {
 
 type DeleteDeliveryResponse = Either<DeliveryNotFoundError, void>;
 
+@Injectable()
 export class DeleteDeliveryUseCase {
   constructor(private deliveryRepository: DeliveryRepository) {}
 

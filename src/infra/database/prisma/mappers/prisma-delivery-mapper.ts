@@ -28,7 +28,7 @@ export class PrismaDeliveryMapper {
     return Delivery.create(
       {
         product: raw.product,
-        status: this.mapPrismaStatusToDomain(raw.status),
+        status: PrismaDeliveryMapper.mapPrismaStatusToDomain(raw.status),
         photoUrl: raw.photoUrl ?? undefined,
         recipientId: raw.recipientId,
         deliverymanId: raw.deliverymanId,
