@@ -54,7 +54,7 @@ export class CreateDeliveryUseCase {
         recipientId: recipientId,
         deliverymanId: deliverymanId,
         photoUrl: photoUrl,
-        status: DeliveryStatus.PENDING,
+        status: DeliveryStatus.CREATED,
       });
 
       await this.deliveryRepository.create(delivery);

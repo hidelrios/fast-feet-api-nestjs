@@ -82,6 +82,7 @@ model Delivery {
 }
 
 enum DeliveryStatus {
+  CREATED
   PENDING // aguardando retirada
   WITHDRAWN // retirada
   DELIVERED // entregue (com foto)

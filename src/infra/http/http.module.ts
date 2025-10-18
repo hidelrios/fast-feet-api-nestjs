@@ -25,6 +25,8 @@ import { CreateRecipientUseCase } from '@/domain/delivery/application/use-cases/
 import { ReadRecipientUseCase } from '@/domain/delivery/application/use-cases/read-recipient';
 import { UpdateRecipientUseCase } from '@/domain/delivery/application/use-cases/update-recipient';
 import { DeleteRecipientUseCase } from '@/domain/delivery/application/use-cases/delete-recipient';
+import { UpdateDeliveryStatusController } from './controllers/delivery/update-status-delivery.controller';
+import { UpdateDeliveryStatusUseCase } from '@/domain/delivery/application/use-cases/update-delivery-status';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
@@ -41,6 +43,7 @@ import { DeleteRecipientUseCase } from '@/domain/delivery/application/use-cases/
     ReadRecipientController,
     UpdateRecipientController,
     DeleteRecipientController,
+    UpdateDeliveryStatusController
   ],
   providers: [
     CreateDeliveryPeopleUseCase,
@@ -55,6 +58,7 @@ import { DeleteRecipientUseCase } from '@/domain/delivery/application/use-cases/
     ReadRecipientUseCase,
     UpdateRecipientUseCase,
     DeleteRecipientUseCase,
+    UpdateDeliveryStatusUseCase
   ],
   exports: [],
 })

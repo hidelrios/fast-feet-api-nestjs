@@ -3,6 +3,7 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { Optional } from '@/core/types/optional';
 
 export enum DeliveryStatus {
+  CREATED = 'CREATED',
   PENDING = 'PENDING',
   WITHDRAWN = 'WITHDRAWN',
   DELIVERED = 'DELIVERED',
