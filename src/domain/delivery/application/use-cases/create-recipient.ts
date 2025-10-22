@@ -12,6 +12,8 @@ interface CreateRecipientRequest {
   state: string;
   city: string;
   zipCode: string;
+  latitude: string;
+  longitude: string;
 }
 
 type CreateRecipientResponse = Either<
@@ -37,6 +39,8 @@ export class CreateRecipientUseCase {
         state: props.state,
         city: props.city,
         zipCode: props.zipCode,
+        latitude: props.latitude,
+        longitude: props.longitude,
       });
 
       await this.recipientRepository.create(recipient);

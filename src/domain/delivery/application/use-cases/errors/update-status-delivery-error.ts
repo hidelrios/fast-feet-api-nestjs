@@ -1,4 +1,4 @@
-import { UseCaseError } from "@/core/erros/use-case-error";
+import { UseCaseError } from '@/core/erros/use-case-error';
 
 export class UpdateStatusDeliveryError extends Error implements UseCaseError {
   constructor(status: string) {

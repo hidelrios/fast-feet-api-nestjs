@@ -32,4 +32,12 @@ export class UpdateRecipientDTO {
   @IsOptional()
   @IsString()
   zipCode: string;
+
+  @IsOptional()
+  @IsString()
+  latitude: string;
+
+  @IsOptional()
+  @IsString()
+  longitude: string;
 }

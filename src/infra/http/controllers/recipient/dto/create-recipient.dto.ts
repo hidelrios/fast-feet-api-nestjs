@@ -28,4 +28,12 @@ export class CreateRecipientDTO {
   @IsNotEmpty()
   @IsString()
   zipCode: string;
+
+  @IsNotEmpty()
+  @IsString()
+  latitude: string;
+
+  @IsNotEmpty()
+  @IsString()
+  longitude: string;
 }

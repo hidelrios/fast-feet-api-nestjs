@@ -1,6 +1,13 @@
-import { DeliveryNotFoundError } from "@/domain/delivery/application/use-cases/errors/delivery-not-found-error";
-import { UpdateDeliveryStatusUseCase } from "@/domain/delivery/application/use-cases/update-delivery-status";
-import { BadRequestException, Controller, NotFoundException, Param, Post,  Query } from "@nestjs/common";
+import { DeliveryNotFoundError } from '@/domain/delivery/application/use-cases/errors/delivery-not-found-error';
+import { UpdateDeliveryStatusUseCase } from '@/domain/delivery/application/use-cases/update-delivery-status';
+import {
+  BadRequestException,
+  Controller,
+  NotFoundException,
+  Param,
+  Post,
+  Query,
+} from '@nestjs/common';
 
 @Controller('/delivery')
 export class UpdateDeliveryStatusController {
@@ -37,9 +44,14 @@ export class UpdateDeliveryStatusController {
   }
 
   @Post(':id/delivered')
-  async markAsDelivery(@Param('id') id: string, @Query('photoUrl') photoUrl: string): Promise<any> {
-
-    const result = await this.updateDeliveryStatus.markAsDelivered(id, photoUrl);
+  async markAsDelivery(
+    @Param('id') id: string,
+    @Query('photoUrl') photoUrl: string,
+  ): Promise<any> {
+    const result = await this.updateDeliveryStatus.markAsDelivered(
+      id,
+      photoUrl,
+    );
 
     if (result.isLeft()) {
       switch (result.value.constructor) {

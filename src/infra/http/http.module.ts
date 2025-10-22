@@ -27,6 +27,8 @@ import { UpdateRecipientUseCase } from '@/domain/delivery/application/use-cases/
 import { DeleteRecipientUseCase } from '@/domain/delivery/application/use-cases/delete-recipient';
 import { UpdateDeliveryStatusController } from './controllers/delivery/update-status-delivery.controller';
 import { UpdateDeliveryStatusUseCase } from '@/domain/delivery/application/use-cases/update-delivery-status';
+import { NearbyDeliveryUseCase } from '@/domain/delivery/application/use-cases/nearby-delivery';
+import { NearbyDeliveryController } from './controllers/delivery/nearby-delivery.controller';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
@@ -43,7 +45,8 @@ import { UpdateDeliveryStatusUseCase } from '@/domain/delivery/application/use-c
     ReadRecipientController,
     UpdateRecipientController,
     DeleteRecipientController,
-    UpdateDeliveryStatusController
+    UpdateDeliveryStatusController,
+    NearbyDeliveryController
   ],
   providers: [
     CreateDeliveryPeopleUseCase,
@@ -58,7 +61,8 @@ import { UpdateDeliveryStatusUseCase } from '@/domain/delivery/application/use-c
     ReadRecipientUseCase,
     UpdateRecipientUseCase,
     DeleteRecipientUseCase,
-    UpdateDeliveryStatusUseCase
+    UpdateDeliveryStatusUseCase,
+    NearbyDeliveryUseCase
   ],
   exports: [],
 })

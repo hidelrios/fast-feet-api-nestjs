@@ -10,6 +10,8 @@ interface RecipientProps {
   state: string;
   city: string;
   zipCode: string;
+  latitude: string;
+  longitude: string;
   createdAt: Date;
   updatedAt?: Date;
   deletedAt?: Date | null;
@@ -62,6 +64,14 @@ export class Recipient extends Entity<RecipientProps> {
 
   get zipCode() {
     return this.props.zipCode;
+  }
+
+  get latitude() {
+    return this.props.latitude;
+  }
+
+  get longitude() {
+    return this.props.longitude;
   }
 
   get createdAt() {

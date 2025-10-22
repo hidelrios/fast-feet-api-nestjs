@@ -7,7 +7,7 @@ import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class PrismaDeliveryRepository implements DeliveryRepository {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
   async findAll(): Promise<Delivery[]> {
     const deliveries = await this.prisma.delivery.findMany();
     return deliveries.map(PrismaDeliveryMapper.toDomain);
@@ -20,7 +20,9 @@ export class PrismaDeliveryRepository implements DeliveryRepository {
     const updateData: Prisma.DeliveryUpdateInput = {
       ...(delivery.product && { product: delivery.product }),
       ...(delivery.status && { status: delivery.status }),
-      ...(delivery.photoUrl !== undefined && { photoUrl: delivery.photoUrl ?? null }),
+      ...(delivery.photoUrl !== undefined && {
+        photoUrl: delivery.photoUrl ?? null,
+      }),
       ...(delivery.recipientId && {
         recipient: { connect: { id: delivery.recipientId } },
       }),
@@ -29,7 +31,9 @@ export class PrismaDeliveryRepository implements DeliveryRepository {
       }),
       ...(delivery.createdAt && { createdAt: delivery.createdAt }),
       updatedAt: delivery.updatedAt ?? new Date(),
-      ...(delivery.deletedAt !== undefined && { deletedAt: delivery.deletedAt }),
+      ...(delivery.deletedAt !== undefined && {
+        deletedAt: delivery.deletedAt,
+      }),
     };
 
     await this.prisma.delivery.update({
