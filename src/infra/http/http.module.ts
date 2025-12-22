@@ -29,6 +29,8 @@ import { UpdateDeliveryStatusController } from './controllers/delivery/update-st
 import { UpdateDeliveryStatusUseCase } from '@/domain/delivery/application/use-cases/update-delivery-status';
 import { NearbyDeliveryUseCase } from '@/domain/delivery/application/use-cases/nearby-delivery';
 import { NearbyDeliveryController } from './controllers/delivery/nearby-delivery.controller';
+import { AuthenticationController } from './controllers/authentication/authentication.controller';
+import { AuthenticationUseCase } from '@/domain/auth/application/use-cases/auth.use-case';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
@@ -46,7 +48,8 @@ import { NearbyDeliveryController } from './controllers/delivery/nearby-delivery
     UpdateRecipientController,
     DeleteRecipientController,
     UpdateDeliveryStatusController,
-    NearbyDeliveryController
+    NearbyDeliveryController,
+    AuthenticationController
   ],
   providers: [
     CreateDeliveryPeopleUseCase,
@@ -62,7 +65,8 @@ import { NearbyDeliveryController } from './controllers/delivery/nearby-delivery
     UpdateRecipientUseCase,
     DeleteRecipientUseCase,
     UpdateDeliveryStatusUseCase,
-    NearbyDeliveryUseCase
+    NearbyDeliveryUseCase,
+    AuthenticationUseCase
   ],
   exports: [],
 })
