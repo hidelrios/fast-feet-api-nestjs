@@ -22,6 +22,7 @@ export class AuthenticationController {
           return new BadRequestException(error.message);
       }
     }
-    return result;
+    const { accessToken } = result.value;
+    return { access_token: accessToken };
   }
 }

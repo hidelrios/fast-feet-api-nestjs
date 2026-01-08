@@ -10,7 +10,7 @@ type AuthenticationUseCaseResponse = Either<
   UserNotExistsError |
   AuthenticationError,
   {
-    access_token: string;
+    accessToken: string;
   }
 >;
 
@@ -41,6 +41,6 @@ export class AuthenticationUseCase {
       },
     );
 
-    return right({ access_token: token });
+    return right({ accessToken: token });
   }
 }
