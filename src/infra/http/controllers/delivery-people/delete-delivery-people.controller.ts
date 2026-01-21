@@ -7,11 +7,12 @@ import {
 } from '@nestjs/common';
 import { DeleteDeliveryPeopleUseCase } from '@/domain/user/application/use-cases/delete-delivery-people';
 import { DeliveryPeopleNotExistsError } from '@/domain/user/application/use-cases/erros/delivery-people-not-exists-error';
+import { Roles } from '@/infra/auth/roles';
 
 @Controller('/delivery-people')
 export class DeleteDeliveryPeopleController {
   constructor(private deleteDeliveryPeople: DeleteDeliveryPeopleUseCase) {}
-
+  @Roles('ADMIN')
   @Delete(':id')
   async handle(@Param('id') id: string): Promise<any> {
     const result = await this.deleteDeliveryPeople.execute({

@@ -1,11 +1,12 @@
 import { BadRequestException, Controller, Get, Query } from '@nestjs/common';
 
 import { ReadDeliveryPeopleUseCase } from '@/domain/user/application/use-cases/read-delivery-people';
+import { Roles } from '@/infra/auth/roles';
 
 @Controller('/delivery-people')
 export class ReadDeliveryPeopleController {
   constructor(private readDeliveryPeople: ReadDeliveryPeopleUseCase) {}
-
+  @Roles('ADMIN')
   @Get()
   async handle(
     @Query('id') id?: string,

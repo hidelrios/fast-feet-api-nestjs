@@ -8,11 +8,12 @@ import {
 import { UpdateDeliveryPeopleUseCase } from '@/domain/user/application/use-cases/update-delivery-people';
 import { UpdateDeliveryPeopleDTO } from './dto/update-delivery-people.dto';
 import { DeliveryPeopleNotExistsError } from '@/domain/user/application/use-cases/erros/delivery-people-not-exists-error';
+import { Roles } from '@/infra/auth/roles';
 
 @Controller('/delivery-people')
 export class UpdateDeliveryPeopleController {
   constructor(private updateDeliveryPeople: UpdateDeliveryPeopleUseCase) {}
-
+  @Roles('ADMIN')
   @Put()
   async handle(
     @Body() updateDeliveryPeopleDTO: UpdateDeliveryPeopleDTO,

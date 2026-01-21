@@ -7,11 +7,12 @@ import {
 } from '@nestjs/common';
 import { DeleteRecipientUseCase } from '@/domain/delivery/application/use-cases/delete-recipient';
 import { RecipientNotFoundError } from '@/domain/delivery/application/use-cases/errors/recipient-not-found-error';
+import { Roles } from '@/infra/auth/roles';
 
 @Controller('/recipient')
 export class DeleteRecipientController {
   constructor(private deleteRecipientUseCase: DeleteRecipientUseCase) {}
-
+  @Roles('ADMIN')
   @Delete(':id')
   async handle(@Param('id') id: string): Promise<any> {
     const result = await this.deleteRecipientUseCase.execute({

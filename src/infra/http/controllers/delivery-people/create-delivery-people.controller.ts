@@ -8,11 +8,12 @@ import {
 } from '@nestjs/common';
 import { CreateDeliveryPeopleDTO } from './dto/create-delivery-people.dto';
 import { DeliveryPeopleAlreadyExistsError } from '@/domain/user/application/use-cases/erros/delivery-people-already-exists-error';
+import { Roles } from '@/infra/auth/roles';
 
 @Controller('/delivery-people')
 export class CreateDeliveryPeopleController {
   constructor(private createDeliveryPeople: CreateDeliveryPeopleUseCase) {}
-
+  @Roles('ADMIN')
   @Post()
   async handle(
     @Body() createDeliveryPeopleDTO: CreateDeliveryPeopleDTO,
