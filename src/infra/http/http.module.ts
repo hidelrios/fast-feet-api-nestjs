@@ -31,9 +31,12 @@ import { NearbyDeliveryUseCase } from '@/domain/delivery/application/use-cases/n
 import { NearbyDeliveryController } from './controllers/delivery/nearby-delivery.controller';
 import { AuthenticationController } from './controllers/authentication/authentication.controller';
 import { AuthenticationUseCase } from '@/domain/auth/application/use-cases/auth.use-case';
+import { AuthModule } from '../auth/auth.module';
+import { EnvModule } from '../env/env.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [DatabaseModule, CryptographyModule],
+  imports: [DatabaseModule, CryptographyModule, AuthModule, EnvModule, JwtModule],
   controllers: [
     CreateDeliveryPeopleController,
     UpdateDeliveryPeopleController,

@@ -9,11 +9,12 @@ import { CreateDeliveryUseCase } from '@/domain/delivery/application/use-cases/c
 import { CreateDeliveryDTO } from './dto/create-delivery.dto';
 import { DeliveryManNotFoundError } from '@/domain/delivery/application/use-cases/errors/deliveryman-not-found-error';
 import { RecipientNotFoundError } from '@/domain/delivery/application/use-cases/errors/recipient-not-found-error';
+import { Roles } from '@/infra/auth/roles';
 
 @Controller('/delivery')
 export class CreateDeliveryController {
   constructor(private createDelivery: CreateDeliveryUseCase) {}
-
+  @Roles('ADMIN')
   @Post()
   async handle(@Body() createDeliveryDTO: CreateDeliveryDTO): Promise<any> {
     const { product, photoUrl, deliverymanId, recipientId } = createDeliveryDTO;

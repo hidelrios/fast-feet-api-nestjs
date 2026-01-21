@@ -2,12 +2,13 @@ import { BadRequestException, Body, Controller, NotFoundException, Post } from "
 import { AuthenticationDTO } from "./dto/authentication.dto";
 import { AuthenticationUseCase } from "@/domain/auth/application/use-cases/auth.use-case";
 import { UserNotExistsError } from "@/domain/auth/application/use-cases/erros/user-not-exists-error";
+import { Public } from "@/infra/auth/public";
 
 @Controller('auth')
 export class AuthenticationController {
   constructor(private authenticationUseCase: AuthenticationUseCase) { }
-
-  @Post()
+  @Public()
+  @Post('login')
   async handle(@Body() authenticationDTO: AuthenticationDTO): Promise<any> {
     const { cpf, password } = authenticationDTO;
 

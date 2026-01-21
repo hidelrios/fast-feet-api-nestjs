@@ -36,10 +36,11 @@ export class AuthenticationUseCase {
     }
     const token = await this.jwtService.signAsync(
       {
-        sub: user.id,
+        sub: user.id.toValue(),
         role: user.role,
       },
     );
+    console.log('Token gerado na use case de autenticação:', user.id.toValue(), token);
 
     return right({ accessToken: token });
   }
