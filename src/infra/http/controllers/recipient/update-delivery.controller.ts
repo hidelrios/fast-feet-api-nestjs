@@ -9,6 +9,7 @@ import { UpdateRecipientUseCase } from '@/domain/delivery/application/use-cases/
 import { UpdateRecipientDTO } from './dto/update-recipient.dto';
 import { RecipientNotFoundError } from '@/domain/delivery/application/use-cases/errors/recipient-not-found-error';
 import { Roles } from '@/infra/auth/roles';
+import { RecipientPresenter } from '../../presenters/recipient-presenter';
 
 @Controller('/recipient')
 export class UpdateRecipientController {
@@ -28,6 +29,8 @@ export class UpdateRecipientController {
           return new BadRequestException(result.value.message);
       }
     }
-    return result;
+    
+    const recipient = result.value.recipient;
+    return { recipient: RecipientPresenter.toHTTP(recipient) };
   }
 }

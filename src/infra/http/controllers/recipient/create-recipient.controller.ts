@@ -9,10 +9,11 @@ import { CreateRecipientUseCase } from '@/domain/delivery/application/use-cases/
 import { CreateRecipientError } from '@/domain/delivery/application/use-cases/errors/create-recipient-error';
 import { CreateRecipientDTO } from './dto/create-recipient.dto';
 import { Roles } from '@/infra/auth/roles';
+import { RecipientPresenter } from '../../presenters/recipient-presenter';
 
 @Controller('/recipient')
 export class CreateRecipientController {
-  constructor(private createRecipient: CreateRecipientUseCase) {}
+  constructor(private createRecipient: CreateRecipientUseCase) { }
   @Roles('ADMIN')
   @Post()
   async handle(@Body() createRecipientDTO: CreateRecipientDTO): Promise<any> {
@@ -28,6 +29,9 @@ export class CreateRecipientController {
           return new InternalServerErrorException(result.value.message);
       }
     }
-    return result;
+
+    const recipient = result.value.recipient;
+
+    return { recipient: RecipientPresenter.toHTTP(recipient) };
   }
 }

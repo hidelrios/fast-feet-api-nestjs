@@ -9,6 +9,7 @@ import {
 import { ReadRecipientUseCase } from '@/domain/delivery/application/use-cases/read-recipient';
 import { RecipientNotFoundError } from '@/domain/delivery/application/use-cases/errors/recipient-not-found-error';
 import { Roles } from '@/infra/auth/roles';
+import { RecipientPresenter } from '../../presenters/recipient-presenter';
 
 @Controller('/recipient')
 export class ReadRecipientController {
@@ -26,6 +27,8 @@ export class ReadRecipientController {
           return new BadRequestException(result.value.message);
       }
     }
-    return result.value;
+        const recipient = result.value.recipient;
+    
+        return { recipients: recipient.map((value) => RecipientPresenter.toHTTP(value)) };
   }
 }

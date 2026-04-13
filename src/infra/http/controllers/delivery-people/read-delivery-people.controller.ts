@@ -25,6 +25,6 @@ export class ReadDeliveryPeopleController {
     }
     const deliveryPeople = result.value;
 
-    return { user: deliveryPeople ? DeliveryPeoplePresenter.toHTTP(deliveryPeople) : null };
+    return { deliveryPeople: deliveryPeople ? DeliveryPeoplePresenter.toHTTP(deliveryPeople) : null };
   }
 }

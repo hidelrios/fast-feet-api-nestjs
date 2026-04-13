@@ -9,6 +9,7 @@ import {
 import { CreateDeliveryPeopleDTO } from './dto/create-delivery-people.dto';
 import { DeliveryPeopleAlreadyExistsError } from '@/domain/user/application/use-cases/erros/delivery-people-already-exists-error';
 import { Roles } from '@/infra/auth/roles';
+import { DeliveryPeoplePresenter } from '../../presenters/delivery-people-presenter';
 
 @Controller('/delivery-people')
 export class CreateDeliveryPeopleController {
@@ -34,6 +35,7 @@ export class CreateDeliveryPeopleController {
       }
     }
 
-    return result;
+    const deliveryPeople = result.value.deliveryPerson;
+    return { deliveryPeople: DeliveryPeoplePresenter.toHTTP(deliveryPeople) };
   }
 }

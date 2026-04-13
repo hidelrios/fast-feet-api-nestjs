@@ -9,6 +9,7 @@ import { UpdateDeliveryPeopleUseCase } from '@/domain/user/application/use-cases
 import { UpdateDeliveryPeopleDTO } from './dto/update-delivery-people.dto';
 import { DeliveryPeopleNotExistsError } from '@/domain/user/application/use-cases/erros/delivery-people-not-exists-error';
 import { Roles } from '@/infra/auth/roles';
+import { DeliveryPeoplePresenter } from '../../presenters/delivery-people-presenter';
 
 @Controller('/delivery-people')
 export class UpdateDeliveryPeopleController {
@@ -33,6 +34,8 @@ export class UpdateDeliveryPeopleController {
           return new BadRequestException(result.value.message);
       }
     }
-    return result;
+    const deliveryPeople = result.value.deliveryPerson;
+    
+    return { deliveryPeople: DeliveryPeoplePresenter.toHTTP(deliveryPeople)};;
   }
 }
