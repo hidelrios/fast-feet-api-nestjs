@@ -27,6 +27,6 @@ export class DeleteDeliveryPeopleController {
           return new BadRequestException(result.value.message);
       }
     }
-    return result;
+    return { message: 'Delivery person deleted successfully' };
   }
 }

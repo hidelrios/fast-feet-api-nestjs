@@ -29,9 +29,13 @@ export class PrismaDeliveryPeopleRepository
   }
 
   async delete(userId: string): Promise<void> {
-    await this.prisma.user.delete({
+    await this.prisma.user.update({
       where: {
         id: userId,
+      },
+      data: {
+        isActive: false,
+        deletedAt: new Date(),
       },
     });
   }

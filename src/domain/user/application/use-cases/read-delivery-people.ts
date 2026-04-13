@@ -11,7 +11,7 @@ interface ReadDeliveryPeopleUseCaseRequest {
 
 type ReadDeliveryPeopleUseCaseResponse = Either<
   DeliveryPeopleNotExistsError,
-  User | User[] | null
+  User | null
 >;
 @Injectable()
 export class ReadDeliveryPeopleUseCase {
@@ -21,10 +21,6 @@ export class ReadDeliveryPeopleUseCase {
     id,
     cpf,
   }: ReadDeliveryPeopleUseCaseRequest): Promise<ReadDeliveryPeopleUseCaseResponse> {
-    if (!id && !cpf) {
-      const allUsers = await this.deliveryPeopleRepository.findAll();
-      return right(allUsers);
-    }
 
     if (id) {
       const user = await this.deliveryPeopleRepository.findById(id);

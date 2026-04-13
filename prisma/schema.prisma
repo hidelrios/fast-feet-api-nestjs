@@ -23,6 +23,7 @@ model User {
   cpf       String    @unique
   password  String
   role      Role      @default(DELIVERYMAN)
+  isActive  Boolean   @default(true)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
@@ -70,7 +71,7 @@ model Delivery {
   status   DeliveryStatus @default(PENDING)
   photoUrl String? // obrigatório quando entregue
 
-  createdAt DateTime  @default(now())
+  createdAt DateTime  @default(now()) 
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 
