@@ -12,6 +12,8 @@ import {
 export class PrismaDeliveryMapper {
   static mapPrismaStatusToDomain(status: PrismaDeliveryStatus): DeliveryStatus {
     switch (status) {
+      case 'CREATED':
+        return DeliveryStatus.CREATED;
       case 'PENDING':
         return DeliveryStatus.PENDING;
       case 'WITHDRAWN':

@@ -7,11 +7,13 @@ import {
 } from '@nestjs/common';
 import { DeleteDeliveryUseCase } from '@/domain/delivery/application/use-cases/delete-delivery';
 import { DeliveryNotFoundError } from '@/domain/delivery/application/use-cases/errors/delivery-not-found-error';
+import { Roles } from '@/infra/auth/roles';
 
 @Controller('/delivery')
 export class DeleteDeliveryController {
   constructor(private deleteDelivery: DeleteDeliveryUseCase) {}
-
+  
+  @Roles('ADMIN')
   @Delete(':id')
   async handle(@Param('id') id: string): Promise<any> {
     const result = await this.deleteDelivery.execute({
@@ -26,6 +28,6 @@ export class DeleteDeliveryController {
           return new BadRequestException(result.value.message);
       }
     }
-    return result;
+    return { message: 'Delivery deleted successfully' };
   }
 }

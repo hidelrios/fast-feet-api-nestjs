@@ -4,10 +4,11 @@ import { DeliveryNotFoundError } from './errors/delivery-not-found-error';
 import { DeliveryStatus } from '../../enterprise/entities/delivery';
 import { UpdateStatusDeliveryError } from './errors/update-status-delivery-error';
 import { Injectable } from '@nestjs/common';
+import { Delivery } from '../../enterprise/entities/delivery';
 
 type UpdateDeliveryStatusUseCaseResponse = Either<
   DeliveryNotFoundError | UpdateStatusDeliveryError,
-  void
+  { delivery: Delivery }
 >;
 
 @Injectable()
@@ -30,7 +31,7 @@ export class UpdateDeliveryStatusUseCase {
     delivery.update({ status: DeliveryStatus.PENDING });
     await this.deliveryRepository.update(delivery);
 
-    return right(undefined);
+    return right({ delivery });
   }
 
   async markAsWithdrawn(
@@ -45,7 +46,7 @@ export class UpdateDeliveryStatusUseCase {
     }
     delivery.update({ status: DeliveryStatus.WITHDRAWN });
     await this.deliveryRepository.update(delivery);
-    return right(undefined);
+    return right({ delivery });
   }
 
   async markAsDelivered(
@@ -68,7 +69,7 @@ export class UpdateDeliveryStatusUseCase {
     }
     delivery.update({ status: DeliveryStatus.DELIVERED, photoUrl });
     await this.deliveryRepository.update(delivery);
-    return right(undefined);
+    return right({ delivery });
   }
 
   async markAsReturned(
@@ -83,6 +84,6 @@ export class UpdateDeliveryStatusUseCase {
     }
     delivery.update({ status: DeliveryStatus.RETURNED });
     await this.deliveryRepository.update(delivery);
-    return right(undefined);
+    return right({ delivery });
   }
 }

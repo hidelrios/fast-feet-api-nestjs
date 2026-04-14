@@ -10,10 +10,13 @@ import { CreateDeliveryDTO } from './dto/create-delivery.dto';
 import { DeliveryManNotFoundError } from '@/domain/delivery/application/use-cases/errors/deliveryman-not-found-error';
 import { RecipientNotFoundError } from '@/domain/delivery/application/use-cases/errors/recipient-not-found-error';
 import { Roles } from '@/infra/auth/roles';
+import { DeliveryPresenter } from '../../presenters/delivery-presenter';
+import { Public } from '@/infra/auth/public';
 
 @Controller('/delivery')
 export class CreateDeliveryController {
   constructor(private createDelivery: CreateDeliveryUseCase) {}
+  
   @Roles('ADMIN')
   @Post()
   async handle(@Body() createDeliveryDTO: CreateDeliveryDTO): Promise<any> {
@@ -35,6 +38,6 @@ export class CreateDeliveryController {
       }
     }
 
-    return result;
+    return { delivery: DeliveryPresenter.toHttp(result.value.delivery) };
   }
 }

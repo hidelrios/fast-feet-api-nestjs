@@ -9,11 +9,14 @@ import { UpdateDeliveryPeopleUseCase } from '@/domain/user/application/use-cases
 import { DeliveryPeopleNotExistsError } from '@/domain/user/application/use-cases/erros/delivery-people-not-exists-error';
 import { UpdateDeliveryUseCase } from '@/domain/delivery/application/use-cases/update-delivery';
 import { UpdateDeliveryDTO } from './dto/update-delivery-people.dto';
+import { DeliveryPresenter } from '../../presenters/delivery-presenter';
+import { Roles } from '@/infra/auth/roles';
 
 @Controller('/delivery')
 export class UpdateDeliveryController {
   constructor(private updateDelivery: UpdateDeliveryUseCase) {}
 
+  @Roles('ADMIN')
   @Put()
   async handle(@Body() updateDeliveryDTO: UpdateDeliveryDTO): Promise<any> {
     const { id, product, photoUrl, status, deliverymanId, recipientId } =
@@ -35,6 +38,6 @@ export class UpdateDeliveryController {
           return new BadRequestException(result.value.message);
       }
     }
-    return result;
+    return { delivery: DeliveryPresenter.toHttp(result.value.delivery) };
   }
 }

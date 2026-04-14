@@ -8,6 +8,7 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { DeliveryPresenter } from '../../presenters/delivery-presenter';
 
 @Controller('/delivery')
 export class UpdateDeliveryStatusController {
@@ -25,7 +26,7 @@ export class UpdateDeliveryStatusController {
           return new BadRequestException(result.value.message);
       }
     }
-    return result;
+    return { delivery: DeliveryPresenter.toHttp(result.value.delivery) };
   }
 
   @Post(':id/withdrawn')
@@ -40,7 +41,7 @@ export class UpdateDeliveryStatusController {
           return new BadRequestException(result.value.message);
       }
     }
-    return result;
+    return { delivery: DeliveryPresenter.toHttp(result.value.delivery) };
   }
 
   @Post(':id/delivered')
@@ -61,7 +62,7 @@ export class UpdateDeliveryStatusController {
           return new BadRequestException(result.value.message);
       }
     }
-    return result;
+    return { delivery: DeliveryPresenter.toHttp(result.value.delivery) };
   }
 
   @Post(':id/returned')
@@ -76,6 +77,6 @@ export class UpdateDeliveryStatusController {
           return new BadRequestException(result.value.message);
       }
     }
-    return result;
+    return { delivery: DeliveryPresenter.toHttp(result.value.delivery) };
   }
 }
