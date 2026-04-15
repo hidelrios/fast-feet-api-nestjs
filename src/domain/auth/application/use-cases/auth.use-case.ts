@@ -29,7 +29,7 @@ export class AuthenticationUseCase {
       return left(new UserNotExistsError(cpf));
     }
 
-    const checkPassword = this.hashComparer.compare(password, user.password);
+    const checkPassword =  this.hashComparer.compare(password, user.password);
 
     if (!checkPassword) {
       return left(new AuthenticationError());
@@ -40,8 +40,6 @@ export class AuthenticationUseCase {
         role: user.role,
       },
     );
-    console.log('Token gerado na use case de autenticação:', user.id.toValue(), token);
-
     return right({ accessToken: token });
   }
 }

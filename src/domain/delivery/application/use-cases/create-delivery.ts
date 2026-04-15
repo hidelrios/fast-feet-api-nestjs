@@ -61,7 +61,6 @@ export class CreateDeliveryUseCase {
 
       return right({ delivery });
     } catch (err) {
-      console.log(err);
       return left(new CreateDeliveryError());
     }
   }

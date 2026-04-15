@@ -34,6 +34,8 @@ import { AuthenticationUseCase } from '@/domain/auth/application/use-cases/auth.
 import { AuthModule } from '../auth/auth.module';
 import { EnvModule } from '../env/env.module';
 import { JwtModule } from '@nestjs/jwt';
+import { ChangePasswordUseCase } from '@/domain/auth/application/use-cases/change-password.use-case';
+import { ChangePasswordController } from './controllers/authentication/change-password.controller';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule, AuthModule, EnvModule, JwtModule],
@@ -52,7 +54,8 @@ import { JwtModule } from '@nestjs/jwt';
     DeleteRecipientController,
     UpdateDeliveryStatusController,
     NearbyDeliveryController,
-    AuthenticationController
+    AuthenticationController,
+    ChangePasswordController
   ],
   providers: [
     CreateDeliveryPeopleUseCase,
@@ -69,7 +72,8 @@ import { JwtModule } from '@nestjs/jwt';
     DeleteRecipientUseCase,
     UpdateDeliveryStatusUseCase,
     NearbyDeliveryUseCase,
-    AuthenticationUseCase
+    AuthenticationUseCase,
+    ChangePasswordUseCase
   ],
   exports: [],
 })

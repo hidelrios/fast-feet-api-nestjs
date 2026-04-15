@@ -22,8 +22,16 @@ export class PrismaUserRepository
 
     return PrismaUserMapper.toDomain(user);
   }
-  findById(id: string): Promise<User | null> {
-    throw new Error('Method not implemented.');
+  async findById(id: string): Promise<User | null> {
+    const user = await this.prisma.user.findUnique({
+      where: { id, },
+    });
+
+    if (!user) {
+      return null;
+    }
+
+    return PrismaUserMapper.toDomain(user);
   }
   findByEmail(email: string): Promise<User | null> {
     throw new Error('Method not implemented.');
@@ -31,8 +39,19 @@ export class PrismaUserRepository
   create(user: User): Promise<void> {
     throw new Error('Method not implemented.');
   }
-  update(user: Partial<User>): Promise<void> {
-    throw new Error('Method not implemented.');
+
+  async update(user: Partial<User>): Promise<void> {
+    await this.prisma.user.update({
+      where: { id: user.id?.toString() },
+      data: {
+        password: user.password,
+        cpf: user.cpf,
+        name: user.name,
+        role: user.role,
+        updatedAt: new Date(),
+      },
+    });
+      
   }
   
 }
