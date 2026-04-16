@@ -20,11 +20,8 @@ export class CreateDeliveryController {
   @Roles('ADMIN')
   @Post()
   async handle(@Body() createDeliveryDTO: CreateDeliveryDTO): Promise<any> {
-    const { product, photoUrl, deliverymanId, recipientId } = createDeliveryDTO;
+    const {  recipientId } = createDeliveryDTO;
     const result = await this.createDelivery.execute({
-      product,
-      photoUrl,
-      deliverymanId,
       recipientId,
     });
 

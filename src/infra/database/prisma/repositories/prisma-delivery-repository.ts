@@ -18,7 +18,6 @@ export class PrismaDeliveryRepository implements DeliveryRepository {
     }
 
     const updateData: Prisma.DeliveryUpdateInput = {
-      ...(delivery.product && { product: delivery.product }),
       ...(delivery.status && { status: delivery.status }),
       ...(delivery.photoUrl !== undefined && {
         photoUrl: delivery.photoUrl ?? null,

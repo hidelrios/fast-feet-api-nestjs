@@ -67,7 +67,6 @@ model Notification {
 // Encomendas(Delivery)
 model Delivery {
   id       String         @id @default(uuid())
-  product  String
   status   DeliveryStatus @default(PENDING)
   photoUrl String? // obrigatório quando entregue
 

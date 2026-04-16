@@ -11,11 +11,10 @@ export enum DeliveryStatus {
 }
 
 interface DeliveryProps {
-  product: string;
   status: DeliveryStatus;
   photoUrl?: string;
   recipientId: string;
-  deliverymanId: string;
+  deliverymanId?: string;
   createdAt: Date;
   updatedAt?: Date;
   deletedAt?: Date | null;
@@ -29,6 +28,7 @@ export class Delivery extends Entity<DeliveryProps> {
     const delivery = new Delivery(
       {
         ...props,
+        status: props.status ?? DeliveryStatus.CREATED,
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.createdAt ?? new Date(),
       },
@@ -41,10 +41,6 @@ export class Delivery extends Entity<DeliveryProps> {
   update(props: Partial<DeliveryProps>) {
     Object.assign(this.props, props);
     this.props.updatedAt = new Date();
-  }
-
-  get product() {
-    return this.props.product;
   }
 
   get status() {

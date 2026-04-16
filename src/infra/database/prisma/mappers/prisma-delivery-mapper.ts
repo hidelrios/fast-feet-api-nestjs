@@ -29,7 +29,6 @@ export class PrismaDeliveryMapper {
   static toDomain(raw: PrismaDelivery): Delivery {
     return Delivery.create(
       {
-        product: raw.product,
         status: PrismaDeliveryMapper.mapPrismaStatusToDomain(raw.status),
         photoUrl: raw.photoUrl ?? undefined,
         recipientId: raw.recipientId,
@@ -44,7 +43,6 @@ export class PrismaDeliveryMapper {
   static toPrisma(delivery: Delivery): Prisma.DeliveryCreateInput {
     return {
       id: delivery.id.toString(),
-      product: delivery.product,
       status: delivery.status,
       photoUrl: delivery.photoUrl ?? null,
       recipient: {

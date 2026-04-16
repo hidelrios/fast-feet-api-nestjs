@@ -9,11 +9,7 @@ import { RecipientNotFoundError } from './errors/recipient-not-found-error';
 import { Injectable } from '@nestjs/common';
 
 interface CreateDeliveryRequest {
-  product: string;
   recipientId: string;
-  deliverymanId: string;
-  status?: DeliveryStatus;
-  photoUrl?: string;
 }
 
 type CreateDeliveryResponse = Either<
@@ -25,23 +21,12 @@ type CreateDeliveryResponse = Either<
 export class CreateDeliveryUseCase {
   constructor(
     private deliveryRepository: DeliveryRepository,
-    private deliveryManRepository: DeliveryPeopleRepository,
     private recipientRepository: RecipientRepository,
   ) {}
 
   async execute({
-    product,
-    deliverymanId,
     recipientId,
-    photoUrl,
   }: CreateDeliveryRequest): Promise<CreateDeliveryResponse> {
-    const findDeliveryman =
-      await this.deliveryManRepository.findById(deliverymanId);
-
-    if (!findDeliveryman) {
-      return left(new DeliveryManNotFoundError(deliverymanId));
-    }
-
     const recipient = await this.recipientRepository.findById(recipientId);
 
     if (!recipient) {
@@ -50,10 +35,7 @@ export class CreateDeliveryUseCase {
 
     try {
       const delivery = Delivery.create({
-        product: product,
         recipientId: recipientId,
-        deliverymanId: deliverymanId,
-        photoUrl: photoUrl,
         status: DeliveryStatus.CREATED,
       });
 
