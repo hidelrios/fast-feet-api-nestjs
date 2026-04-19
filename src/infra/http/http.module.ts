@@ -38,6 +38,8 @@ import { ChangePasswordUseCase } from '@/domain/auth/application/use-cases/chang
 import { ChangePasswordController } from './controllers/authentication/change-password.controller';
 import { PickUpDeliveryUseCase } from '@/domain/delivery/application/use-cases/pick-up-delivery';
 import { PickUpDeliveryController } from './controllers/delivery-people/pick-up-order.controller';
+import { GetDeliveryByDeliverymanController } from './controllers/delivery/get-delivery-by-deliveryman.controller';
+import { GetDeliveryByDeliverymanUseCase } from '@/domain/delivery/application/use-cases/get-delivery-by-deliveryman';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule, AuthModule, EnvModule, JwtModule],
@@ -58,7 +60,8 @@ import { PickUpDeliveryController } from './controllers/delivery-people/pick-up-
     NearbyDeliveryController,
     AuthenticationController,
     ChangePasswordController,
-    PickUpDeliveryController
+    PickUpDeliveryController,
+    GetDeliveryByDeliverymanController
   ],
   providers: [
     CreateDeliveryPeopleUseCase,
@@ -77,7 +80,8 @@ import { PickUpDeliveryController } from './controllers/delivery-people/pick-up-
     NearbyDeliveryUseCase,
     AuthenticationUseCase,
     ChangePasswordUseCase,
-    PickUpDeliveryUseCase
+    PickUpDeliveryUseCase,
+    GetDeliveryByDeliverymanUseCase
   ],
   exports: [],
 })

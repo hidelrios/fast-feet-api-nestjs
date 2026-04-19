@@ -3,11 +3,12 @@ import { DeliveryRepository } from '../repositories/delivery-repository';
 import { DeliveryNotFoundError } from './errors/delivery-not-found-error';
 import { DeliveryStatus } from '../../enterprise/entities/delivery';
 import { UpdateStatusDeliveryError } from './errors/update-status-delivery-error';
+import { DeliveryNotAssignedToDeliverymanError } from './errors/delivery-not-assigned-to-deliveryman-error';
 import { Injectable } from '@nestjs/common';
 import { Delivery } from '../../enterprise/entities/delivery';
 
 type UpdateDeliveryStatusUseCaseResponse = Either<
-  DeliveryNotFoundError | UpdateStatusDeliveryError,
+  DeliveryNotFoundError | UpdateStatusDeliveryError | DeliveryNotAssignedToDeliverymanError,
   { delivery: Delivery }
 >;
 
@@ -36,10 +37,14 @@ export class UpdateDeliveryStatusUseCase {
 
   async markAsWithdrawn(
     deliveryId: string,
+    deliverymanId: string,
   ): Promise<UpdateDeliveryStatusUseCaseResponse> {
     const delivery = await this.deliveryRepository.findById(deliveryId);
     if (!delivery) {
       return left(new DeliveryNotFoundError(deliveryId));
+    }
+    if (delivery.deliverymanId !== deliverymanId) {
+      return left(new DeliveryNotAssignedToDeliverymanError(deliverymanId));
     }
     if (delivery.status !== DeliveryStatus.PENDING) {
       return left(new UpdateStatusDeliveryError(delivery.status));
@@ -52,8 +57,8 @@ export class UpdateDeliveryStatusUseCase {
   async markAsDelivered(
     deliveryId: string,
     photoUrl: string,
+    deliverymanId: string,
   ): Promise<UpdateDeliveryStatusUseCaseResponse> {
-    const delivery = await this.deliveryRepository.findById(deliveryId);
     if (!photoUrl) {
       return left(
         new UpdateStatusDeliveryError(
@@ -61,11 +66,16 @@ export class UpdateDeliveryStatusUseCase {
         ),
       );
     }
+    const delivery = await this.deliveryRepository.findById(deliveryId);
+
     if (!delivery) {
       return left(new DeliveryNotFoundError(deliveryId));
     }
     if (delivery.status !== DeliveryStatus.WITHDRAWN) {
       return left(new UpdateStatusDeliveryError(delivery.status));
+    }
+    if (delivery.deliverymanId !== deliverymanId) {
+      return left(new DeliveryNotAssignedToDeliverymanError(deliverymanId));
     }
     delivery.update({ status: DeliveryStatus.DELIVERED, photoUrl });
     await this.deliveryRepository.update(delivery);
@@ -74,10 +84,14 @@ export class UpdateDeliveryStatusUseCase {
 
   async markAsReturned(
     deliveryId: string,
+    deliverymanId: string,
   ): Promise<UpdateDeliveryStatusUseCaseResponse> {
     const delivery = await this.deliveryRepository.findById(deliveryId);
     if (!delivery) {
       return left(new DeliveryNotFoundError(deliveryId));
+    }
+    if (delivery.deliverymanId !== deliverymanId) {
+      return left(new DeliveryNotAssignedToDeliverymanError(deliverymanId));
     }
     if (delivery.status !== DeliveryStatus.WITHDRAWN) {
       return left(new UpdateStatusDeliveryError(delivery.status));

@@ -6,4 +6,5 @@ export abstract class DeliveryRepository {
   abstract findAll(): Promise<Delivery[]>;
   abstract update(data: Partial<Delivery>): Promise<void>;
   abstract delete(id: string): Promise<void>;
+  abstract findByDeliverymanId(deliverymanId: string): Promise<Delivery[]>;
 }
