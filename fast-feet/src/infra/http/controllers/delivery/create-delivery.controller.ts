@@ -1,0 +1,40 @@
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  NotFoundException,
+  Post,
+} from '@nestjs/common';
+import { CreateDeliveryUseCase } from '@/domain/delivery/application/use-cases/create-delivery';
+import { CreateDeliveryDTO } from './dto/create-delivery.dto';
+import { DeliveryManNotFoundError } from '@/domain/delivery/application/use-cases/errors/deliveryman-not-found-error';
+import { RecipientNotFoundError } from '@/domain/delivery/application/use-cases/errors/recipient-not-found-error';
+import { Roles } from '@/infra/auth/roles';
+import { DeliveryPresenter } from '../../presenters/delivery-presenter';
+import { Public } from '@/infra/auth/public';
+
+@Controller('/delivery')
+export class CreateDeliveryController {
+  constructor(private createDelivery: CreateDeliveryUseCase) {}
+  
+  @Roles('ADMIN')
+  @Post()
+  async handle(@Body() createDeliveryDTO: CreateDeliveryDTO): Promise<any> {
+    const {  recipientId } = createDeliveryDTO;
+    const result = await this.createDelivery.execute({
+      recipientId,
+    });
+
+    if (result.isLeft()) {
+      switch (result.value.constructor) {
+        case DeliveryManNotFoundError:
+        case RecipientNotFoundError:
+          return new NotFoundException(result.value.message);
+        default:
+          return new BadRequestException(result.value.message);
+      }
+    }
+
+    return { delivery: DeliveryPresenter.toHttp(result.value.delivery) };
+  }
+}

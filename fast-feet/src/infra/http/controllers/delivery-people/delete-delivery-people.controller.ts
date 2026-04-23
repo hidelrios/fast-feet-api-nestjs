@@ -1,0 +1,32 @@
+import {
+  BadRequestException,
+  Controller,
+  Delete,
+  NotFoundException,
+  Param,
+} from '@nestjs/common';
+import { DeleteDeliveryPeopleUseCase } from '@/domain/user/application/use-cases/delete-delivery-people';
+import { DeliveryPeopleNotExistsError } from '@/domain/user/application/use-cases/erros/delivery-people-not-exists-error';
+import { Roles } from '@/infra/auth/roles';
+
+@Controller('/delivery-people')
+export class DeleteDeliveryPeopleController {
+  constructor(private deleteDeliveryPeople: DeleteDeliveryPeopleUseCase) {}
+  @Roles('ADMIN')
+  @Delete(':id')
+  async handle(@Param('id') id: string): Promise<any> {
+    const result = await this.deleteDeliveryPeople.execute({
+      id,
+    });
+
+    if (result.isLeft()) {
+      switch (result.value.constructor) {
+        case DeliveryPeopleNotExistsError:
+          return new NotFoundException(result.value.message);
+        default:
+          return new BadRequestException(result.value.message);
+      }
+    }
+    return { message: 'Delivery person deleted successfully' };
+  }
+}
