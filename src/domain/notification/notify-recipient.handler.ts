@@ -20,7 +20,7 @@ export class NotifyRecipientHandler
     if (!recipient) return;
 
     await this.notificationService.send({
-      to: 'hidels.rios@gmail.com',
+      to: 'teste@gmail.com',
       message: `Sua encomenda agora está: ${event.status}`,
     });
   }
