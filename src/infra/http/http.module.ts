@@ -40,9 +40,11 @@ import { PickUpDeliveryUseCase } from '@/domain/delivery/application/use-cases/p
 import { PickUpDeliveryController } from './controllers/delivery-people/pick-up-order.controller';
 import { GetDeliveryByDeliverymanController } from './controllers/delivery/get-delivery-by-deliveryman.controller';
 import { GetDeliveryByDeliverymanUseCase } from '@/domain/delivery/application/use-cases/get-delivery-by-deliveryman';
+import { CqrsModule } from '@nestjs/cqrs';
 
 @Module({
-  imports: [DatabaseModule, CryptographyModule, AuthModule, EnvModule, JwtModule],
+  imports: [DatabaseModule, CryptographyModule, AuthModule, EnvModule, JwtModule,  CqrsModule ,
+],
   controllers: [
     CreateDeliveryPeopleController,
     UpdateDeliveryPeopleController,

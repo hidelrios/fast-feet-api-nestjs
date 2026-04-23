@@ -5,6 +5,8 @@ import { DeliveryStatus } from '../../enterprise/entities/delivery';
 import { UpdateStatusDeliveryError } from './errors/update-status-delivery-error';
 import { DeliveryNotAssignedToDeliverymanError } from './errors/delivery-not-assigned-to-deliveryman-error';
 import { Injectable } from '@nestjs/common';
+import { EventBus } from '@nestjs/cqrs';
+import { publishStatusEvent } from '@/core/helpers/publish-status-event';
 import { Delivery } from '../../enterprise/entities/delivery';
 
 type UpdateDeliveryStatusUseCaseResponse = Either<
@@ -14,7 +16,10 @@ type UpdateDeliveryStatusUseCaseResponse = Either<
 
 @Injectable()
 export class UpdateDeliveryStatusUseCase {
-  constructor(private deliveryRepository: DeliveryRepository) {}
+  constructor(
+    private deliveryRepository: DeliveryRepository,
+    private readonly eventBus: EventBus,
+  ) {}
 
   async markAsAvailable(
     deliveryId: string,
@@ -31,6 +36,7 @@ export class UpdateDeliveryStatusUseCase {
 
     delivery.update({ status: DeliveryStatus.PENDING });
     await this.deliveryRepository.update(delivery);
+    publishStatusEvent(this.eventBus, delivery);
 
     return right({ delivery });
   }
@@ -51,6 +57,7 @@ export class UpdateDeliveryStatusUseCase {
     }
     delivery.update({ status: DeliveryStatus.WITHDRAWN });
     await this.deliveryRepository.update(delivery);
+    publishStatusEvent(this.eventBus, delivery);
     return right({ delivery });
   }
 
@@ -79,6 +86,7 @@ export class UpdateDeliveryStatusUseCase {
     }
     delivery.update({ status: DeliveryStatus.DELIVERED, photoUrl });
     await this.deliveryRepository.update(delivery);
+    publishStatusEvent(this.eventBus, delivery);
     return right({ delivery });
   }
 
@@ -98,6 +106,7 @@ export class UpdateDeliveryStatusUseCase {
     }
     delivery.update({ status: DeliveryStatus.RETURNED });
     await this.deliveryRepository.update(delivery);
+    publishStatusEvent(this.eventBus, delivery);
     return right({ delivery });
   }
 }
